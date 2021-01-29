@@ -40,7 +40,7 @@ CREATE TABLE course
 (
     id INTEGER(4) unsigned NOT NULL auto_increment,
     name VARCHAR(32) NOT NULL,
-    prof_id INTEGER(4) unsigned NOT NULL,
+    prof_id INTEGER(4) unsigned,
 
     PRIMARY KEY (id),
     FOREIGN KEY(prof_id) REFERENCES professor(id) ON DELETE CASCADE ON UPDATE CASCADE
