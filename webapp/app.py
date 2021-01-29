@@ -2,12 +2,14 @@
 TITLE: Academic Registration System
 DESCRIPTION: Genesys Coding Challenge
 AUTHOR: Morgan Reilly
+LINKS:
+    * https://flask-restful.readthedocs.io/
 """
-# Imports
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
 
 app = Flask(__name__)
+app.config['BUNDLE_ERRORS'] = True  # Global Error Settings for Parser
 api = Api(app)
 
 """
@@ -25,9 +27,9 @@ STUDENTS = {
     '2': {'name': 'Tina'}
 }
 COURSES = {
-    '101': {'name': 'Maths', 'p_id': '1'},
+    '101': {'name': 'Maths', 'p_id': '1'},  # Example of single professor
     '102': {'name': 'English', 'p_id': '2'},
-    '103': {'name': 'Latin'}
+    '103': {'name': 'Latin', 'p_id': [1, 2]}  # Example of multiple professors
 }
 COURSE_REGISTRIES = {
     '1': {'c_id': '100', 's_id': '1'},
@@ -49,16 +51,16 @@ Used to handle various requests.
 I have split these up due to each request taking somewhat different values.
 """
 # Parser for Professor Requests
-p_parser = reqparse.RequestParser(bundle_errors=True)  # Create a new parser
+p_parser = reqparse.RequestParser()  # Create a new parser
 p_parser.add_argument('name', type=str, required=True, help="Name cannot be blank")
 # Inherit parser arguments from professor requests,
 # but also include p_id since it's unique to course requests
 c_parser = p_parser.copy()
-c_parser.add_argument('p_id', type=int, required=False)
+c_parser.add_argument('p_id', type=int, required=False, action='append')  # Append
 # Student parser will only inherit name
 s_parser = p_parser.copy()
 # Course Registry is unique to requests in that it doesn't need a name, but instead has 2 id's passed
-r_parser = reqparse.RequestParser(bundle_errors=True)
+r_parser = reqparse.RequestParser()
 r_parser.add_argument('c_id', type=int, required=True, help="Course ID cannot be blank")
 r_parser.add_argument('s_id', type=int, required=True, help="Student ID cannot be blank")
 
