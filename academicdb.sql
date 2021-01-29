@@ -51,6 +51,7 @@ ALTER TABLE course AUTO_INCREMENT=100;
 INSERT INTO course (name, prof_id) VALUES
     ('Maths', 1),
     ('English', 2);
+INSERT INTO course (name) values ('Latin');
 ###########################################################
 /* STUDENT SCHEMA */
 CREATE TABLE student
@@ -70,10 +71,12 @@ INSERT INTO student (name) VALUES
 /* COURSE REGISTRY SCHEMA */
 CREATE TABLE course_registry
 (
+    id INTEGER(4) unsigned NOT NULL auto_increment,
     course_id INTEGER(4) unsigned NOT NULL,
     student_id INTEGER(4) unsigned NOT NULL,
 
-    -- UNIQUE (course_id, student_id), --avoid duplicate entries
+    PRIMARY KEY(id),
+    CONSTRAINT UC_Registry UNIQUE (course_id, student_id),
     FOREIGN KEY(course_id) REFERENCES course(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(student_id) REFERENCES student(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
