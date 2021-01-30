@@ -1,0 +1,90 @@
+swagger: "2.0"
+info:
+  description: Academic Registration system swagger file for server code
+  version: "1.0.0"
+  title: Academic Registration System REST
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api"
+
+# Paths supported by server application
+paths:
+  /professors:
+    get:
+      operationId: "professors.read"
+      tags:
+        - "Professors"
+      summary: "The professors data structure supported by the server application"
+      description: "Read list of professors"
+      responses:
+        200:
+          description: "Successful read professors list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                id:
+                  type: "integer"
+                name:
+                  type: "string"
+  /students:
+    get:
+      operationId: "students.read"
+      tags:
+        - "Students"
+      summary: "The Students data structure supported by the server application"
+      description: "Read list of students"
+      responses:
+        200:
+          description: "Successful read students list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                id:
+                  type: "integer"
+                name:
+                  type: "string"
+  /courses:
+    get:
+      operationId: "courses.read"
+      tags:
+        - "Courses"
+      summary: "The courses data structure supported by the server application"
+      description: "Read list of courses"
+      responses:
+        200:
+          description: "Successful read courses list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                id:
+                  type: "integer"
+                name:
+                  type: "string"
+                p_id:
+                  type: "integer"
+  /registries:
+    get:
+      operationId: "registries.read"
+      tags:
+        - "Registries"
+      summary: "The course registries data structure supported by the server application"
+      description: "Read list of course registries"
+      responses:
+        200:
+          description: "Successful read registries list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                id:
+                  type: "integer"
+                c_id:
+                  type: "integer"
+                s_id:
+                  type: "integer"
