@@ -14,7 +14,7 @@ basePath: "/api"
 paths:
   /professors:
     get:
-      operationId: "professors.read"
+      operationId: "professors.read_all"
       tags:
         - "Professors"
       summary: "The professors data structure supported by the server application"
@@ -26,65 +26,36 @@ paths:
             type: "array"
             items:
               properties:
-                id:
-                  type: "integer"
-                name:
-                  type: "string"
-  /students:
-    get:
-      operationId: "students.read"
-      tags:
-        - "Students"
-      summary: "The Students data structure supported by the server application"
-      description: "Read list of students"
-      responses:
-        200:
-          description: "Successful read students list operation"
-          schema:
-            type: "array"
-            items:
-              properties:
-                id:
-                  type: "integer"
-                name:
-                  type: "string"
-  /courses:
-    get:
-      operationId: "courses.read"
-      tags:
-        - "Courses"
-      summary: "The courses data structure supported by the server application"
-      description: "Read list of courses"
-      responses:
-        200:
-          description: "Successful read courses list operation"
-          schema:
-            type: "array"
-            items:
-              properties:
-                id:
-                  type: "integer"
-                name:
-                  type: "string"
                 p_id:
-                  type: "integer"
-  /registries:
-    get:
-      operationId: "registries.read"
+                  type: "string"
+                fname:
+                  type: "string"
+                lname:
+                  type: "string"
+    post:
+      operationId: "professors.create"
       tags:
-        - "Registries"
-      summary: "The course registries data structure supported by the server application"
-      description: "Read list of course registries"
-      responses:
-        200:
-          description: "Successful read registries list operation"
+        - "Professors"
+      summary: "Create a professor and add it to the professors list"
+      description: "Create a new professor on the professors list"
+      parameters:
+        - name: "professor"
+          in: "body"
+          description: "Professor to create"
+          required: True
           schema:
-            type: "array"
-            items:
-              properties:
-                id:
-                  type: "integer"
-                c_id:
-                  type: "integer"
-                s_id:
-                  type: "integer"
+            type: "object"
+            properties:
+              p_id:
+                type: "string"
+                description: "P_ID of professor to create"
+              fname:
+                type: "string"
+                description: "Name of professor to create"
+              lname:
+                type: "string"
+                description: "Name of professor to create"
+      responses:
+        201:
+          description: "Successfully created professor in list"
+
