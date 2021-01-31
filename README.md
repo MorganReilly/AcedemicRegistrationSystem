@@ -19,9 +19,9 @@ Genesys Coding Challenge - Morgan Reilly
 * Nice to have - the application should run in the cloud
 
 ### API Documentation
-Visit:
+Visit: https://app.swaggerhub.com/apis/MorganReilly/AcademicRegistrationAPI/1.0
 ### Backend
-####How to Run:
+#### How to Run:
 * Download Requirements
 * Do this...
 * Then this...
