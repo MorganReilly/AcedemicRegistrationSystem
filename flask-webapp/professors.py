@@ -28,7 +28,7 @@ def read_all():
 
         :return:        sorted list of professors
         """
-    # Create the list of people from our data
+    # Create the list of professors from our data
     return [PROFESSORS[key] for key in sorted(PROFESSORS.keys())]
 
 
@@ -51,7 +51,7 @@ def create(professor):
             "lname": lname
         }
         return make_response(
-            "{p_id} successfully created".format(p_id=p_id), 201
+            "Professor {p_id} successfully created".format(p_id=p_id), 201
         )
 
     # Otherwise, they exist, that's an error

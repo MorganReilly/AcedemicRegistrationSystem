@@ -59,3 +59,141 @@ paths:
         201:
           description: "Successfully created professor in list"
 
+  /courses:
+    get:
+      operationId: "courses.read_all"
+      tags:
+        - "Courses"
+      summary: "The courses data structure supported by the server application"
+      description: "Read list of courses"
+      responses:
+        200:
+          description: "Successful read courses list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                c_id:
+                  type: "integer"
+                title:
+                  type: "string"
+                p_id:
+                  type: "string"
+    post:
+      operationId: "courses.create"
+      tags:
+        - "Courses"
+      summary: "Create a course and add it to the courses list"
+      description: "Create a new course on the courses list"
+      parameters:
+        - name: "course"
+          in: "body"
+          description: "Course to create"
+          required: True
+          schema:
+            type: "object"
+            properties:
+              c_id:
+                type: "integer"
+                description: "C_ID of course to create"
+              title:
+                type: "string"
+                description: "Title of course to create"
+              p_id:
+                type: "string"
+                description: "P_ID of professor to assign"
+      responses:
+        201:
+          description: "Successfully created course in list"
+
+  /students:
+    get:
+      operationId: "students.read_all"
+      tags:
+        - "Students"
+      summary: "The Students data structure supported by the server application"
+      description: "Read list of students"
+      responses:
+        200:
+          description: "Successful read students list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                id:
+                  type: "integer"
+                name:
+                  type: "string"
+    post:
+      operationId: "students.create"
+      tags:
+        - "Students"
+      summary: "Create a student and add it to the students list"
+      description: "Create a new student on the students list"
+      parameters:
+        - name: "student"
+          in: "body"
+          description: "Student to create"
+          required: True
+          schema:
+            type: "object"
+            properties:
+              s_id:
+                type: "string"
+                description: "S_ID of student to create"
+              fname:
+                type: "string"
+                description: "Name of student to create"
+              lname:
+                type: "string"
+                description: "Name of student to create"
+      responses:
+        201:
+          description: "Successfully created student in list"
+
+  /registries:
+    get:
+      operationId: "registries.read_all"
+      tags:
+        - "Registries"
+      summary: "The course registries data structure supported by the server application"
+      description: "Read list of course registries"
+      responses:
+        200:
+          description: "Successful read registries list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                id:
+                  type: "integer"
+                c_id:
+                  type: "integer"
+                s_id:
+                  type: "integer"
+    post:
+      operationId: "registries.create"
+      tags:
+        - "Registries"
+      summary: "Create a registry and add it to the registries list"
+      description: "Create a new registry on the registries list"
+      parameters:
+        - name: "registry"
+          in: "body"
+          description: "Registry to create"
+          required: True
+          schema:
+            type: "object"
+            properties:
+              r_id:
+                type: "string"
+                description: "R_ID of registry to create"
+              c_id:
+                type: "integer"
+                description: "C_ID of course to register"
+              s_id:
+                type: "string"
+                description: "S_ID of student to register"
+      responses:
+        201:
+          description: "Successfully created student in list"
