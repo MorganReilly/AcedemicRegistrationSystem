@@ -4,32 +4,24 @@ ABOUT: Handler for Student endpoint
 AUTHOR: Morgan Reilly
 """
 from flask import make_response, abort
-
-# Data to serve with API
-STUDENTS = {
-    'S001': {
-        's_id': 'S001',
-        'fname': 'Roger',
-        'lname': 'Cullina'
-    },
-    'S002': {
-        's_id': 'S002',
-        'fname': 'Megan',
-        'lname': 'Greenwood'
-    },
-}
+from config import db
+from models import Student, StudentSchema
 
 
 # Create handler for GET request on Students
 def read_all():
     """
         This function responds to a request for /api/students
-        with the complete lists of students
 
-        :return:        sorted list of students
+        :return:        json string of list of students
         """
     # Create the list of students from our data
-    return [STUDENTS[key] for key in sorted(STUDENTS.keys())]
+    students = Student.query.order_by(Student.lname).all()
+
+    # Serialise data for response
+    student_schema = StudentSchema(many=True)
+    data = student_schema.dump(students)
+    return data
 
 
 def create(student):
@@ -39,24 +31,28 @@ def create(student):
     :param student:  student to create in student structure
     :return:        201 on success, 406 on student exists
     """
-    s_id = student.get("s_id", None)
-    fname = student.get("fname", None)
-    lname = student.get("lname", None)
+    fname = student.get("fname")
+    lname = student.get("lname")
 
-    # Does the student exist already?
-    if s_id not in STUDENTS and s_id is not None:
-        STUDENTS[s_id] = {
-            "s_id": s_id,
-            "fname": fname,
-            "lname": lname
-        }
-        return make_response(
-            "Student {s_id} successfully created".format(s_id=s_id), 201
-        )
+    existing_student = (
+        Student.query.filter(Student.fname == fname)
+            .filter(Student.lname == lname)
+            .one_or_none()
+    )
 
-    # Otherwise, they exist, that's an error
+    # Insertion possible?
+    if existing_student is None:
+        # Create student instance using schema and passed-in student
+        schema = StudentSchema()
+        new_student = schema.load(student, session=db.session)
+
+        # Add student to database
+        db.session.add(new_student)
+        db.session.commit()
+
+        # Serialise and return newly created student in response
+        data = schema.dump(new_student)
+        return data, 201
     else:
-        abort(
-            406,
-            "Student with {s_id} already exists".format(s_id=s_id),
-        )
+        # Otherwise professor exists
+        abort(409, f'Student {fname} {lname} exists already')

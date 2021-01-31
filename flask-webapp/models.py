@@ -36,3 +36,17 @@ class CourseSchema(SQLAlchemyAutoSchema):
         model = Course
         include_relationships = True
         load_instance = True
+
+
+class Student(db.Model):
+    __tablename__ = 'student'
+    s_id = db.Column(db.Integer, primary_key=True)
+    lname = db.Column(db.String(32))
+    fname = db.Column(db.String(32))
+
+
+class StudentSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Student
+        include_relationships = True
+        load_instance = True

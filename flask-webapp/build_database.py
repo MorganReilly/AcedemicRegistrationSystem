@@ -5,7 +5,7 @@ AUTHOR: Morgan Reilly
 """
 import os
 from config import db
-from models import Professor, Course
+from models import Professor, Course, Student
 
 # Data to initialise database with
 PROFESSORS = [
@@ -16,6 +16,11 @@ PROFESSORS = [
 COURSES = [
     {'title': 'Maths', 'p_id': 1},
     {'title': 'English', 'p_id': 2}
+]
+
+STUDENTS = [
+    {'fname': 'Roger', 'lname': 'Cullina'},
+    {'fname': 'Megan', 'lname': 'Greenwood'}
 ]
 
 # Delete database file if it exits currently
@@ -30,8 +35,14 @@ for professor in PROFESSORS:
     p = Professor(lname=professor['lname'], fname=professor['fname'])
     db.session.add(p)
 
+# Iterate over COURSES structure and populate database
 for course in COURSES:
     c = Course(title=course['title'], p_id=course['p_id'])
     db.session.add(c)
+
+# Iterate over STUDENTS structure and populate database
+for student in STUDENTS:
+    s = Student(lname=student['lname'], fname=student['fname'])
+    db.session.add(s)
 
 db.session.commit()

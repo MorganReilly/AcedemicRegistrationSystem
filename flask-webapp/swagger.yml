@@ -57,7 +57,7 @@ paths:
                 description: "Last name of professor to create"
       responses:
         201:
-          description: "Successfully created professor in list"
+          description: "Successfully created professor in db"
           schema:
             properties:
               p_id:
@@ -97,8 +97,8 @@ paths:
       operationId: "courses.create"
       tags:
         - "Courses"
-      summary: "Create a course and add it to the courses list"
-      description: "Create a new course on the courses list"
+      summary: "Create a course and add it to the courses db"
+      description: "Create a new course on the courses db"
       parameters:
         - name: "course"
           in: "body"
@@ -134,24 +134,29 @@ paths:
       tags:
         - "Students"
       summary: "The Students data structure supported by the server application"
-      description: "Read list of students"
+      description: "Read students"
       responses:
         200:
-          description: "Successful read students list operation"
+          description: "Successful read students operation"
           schema:
             type: "array"
             items:
               properties:
-                id:
+                s_id:
                   type: "integer"
-                name:
+                  description: "ID of Student"
+                fname:
                   type: "string"
+                  description: "First name of student"
+                lname:
+                  type: "string"
+                  description: "Last name of student"
     post:
       operationId: "students.create"
       tags:
         - "Students"
-      summary: "Create a student and add it to the students list"
-      description: "Create a new student on the students list"
+      summary: "Create a student and add it to the students db"
+      description: "Create a new student on the students db"
       parameters:
         - name: "student"
           in: "body"
@@ -160,9 +165,6 @@ paths:
           schema:
             type: "object"
             properties:
-              s_id:
-                type: "string"
-                description: "S_ID of student to create"
               fname:
                 type: "string"
                 description: "Name of student to create"
@@ -172,6 +174,17 @@ paths:
       responses:
         201:
           description: "Successfully created student in list"
+          schema:
+            properties:
+              s_id:
+                type: "integer"
+                description: "ID of Student"
+              fname:
+                type: "string"
+                description: "First name of Student"
+              lname:
+                type: "string"
+                description: "Last name of Student"
 
   /registries:
     get:
