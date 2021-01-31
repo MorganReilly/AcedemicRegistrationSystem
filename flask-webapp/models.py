@@ -50,3 +50,17 @@ class StudentSchema(SQLAlchemyAutoSchema):
         model = Student
         include_relationships = True
         load_instance = True
+
+
+class Registry(db.Model):
+    __tablename__ = 'registry'
+    r_id = db.Column(db.Integer, primary_key=True)
+    c_id = db.Column(db.Integer)
+    s_id = db.Column(db.Integer)
+
+
+class RegistrySchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Registry
+        include_relationships = True
+        load_instance = True

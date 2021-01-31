@@ -5,7 +5,7 @@ AUTHOR: Morgan Reilly
 """
 import os
 from config import db
-from models import Professor, Course, Student
+from models import Professor, Course, Student, Registry
 
 # Data to initialise database with
 PROFESSORS = [
@@ -14,13 +14,20 @@ PROFESSORS = [
 ]
 
 COURSES = [
-    {'title': 'Maths', 'p_id': 1},
-    {'title': 'English', 'p_id': 2}
+    {'title': 'Maths', 'p_id': 100},
+    {'title': 'English', 'p_id': 101}
 ]
 
 STUDENTS = [
     {'fname': 'Roger', 'lname': 'Cullina'},
     {'fname': 'Megan', 'lname': 'Greenwood'}
+]
+
+REGISTRIES = [
+    {'c_id': 100, 's_id': 1},
+    {'c_id': 100, 's_id': 2},
+    {'c_id': 101, 's_id': 1},
+    {'c_id': 101, 's_id': 2}
 ]
 
 # Delete database file if it exits currently
@@ -44,5 +51,10 @@ for course in COURSES:
 for student in STUDENTS:
     s = Student(lname=student['lname'], fname=student['fname'])
     db.session.add(s)
+
+# Iterate over REGISTRIES structure and populate database
+for registry in REGISTRIES:
+    r = Registry(c_id=registry['c_id'], s_id=registry['s_id'])
+    db.session.add(r)
 
 db.session.commit()

@@ -192,26 +192,29 @@ paths:
       tags:
         - "Registries"
       summary: "The course registries data structure supported by the server application"
-      description: "Read list of course registries"
+      description: "Read course registries"
       responses:
         200:
-          description: "Successful read registries list operation"
+          description: "Successful read registries operation"
           schema:
             type: "array"
             items:
               properties:
-                id:
+                r_id:
                   type: "integer"
+                  description: "ID of Registry"
                 c_id:
                   type: "integer"
+                  description: "ID of Course registered for by Student"
                 s_id:
                   type: "integer"
+                  description: "ID of Student registered for Course"
     post:
       operationId: "registries.create"
       tags:
         - "Registries"
-      summary: "Create a registry and add it to the registries list"
-      description: "Create a new registry on the registries list"
+      summary: "Create a registry and add it to the registries db"
+      description: "Create a new registry on the registries db"
       parameters:
         - name: "registry"
           in: "body"
@@ -220,15 +223,23 @@ paths:
           schema:
             type: "object"
             properties:
-              r_id:
-                type: "string"
-                description: "R_ID of registry to create"
-              c_title:
-                type: "string"
-                description: "Title of course to register"
+              c_id:
+                type: "integer"
+                description: "ID of course to register"
               s_id:
-                type: "string"
-                description: "S_ID of student to register"
+                type: "integer"
+                description: "ID of student to register"
       responses:
         201:
           description: "Successfully created student in list"
+          schema:
+            properties:
+              r_id:
+                type: "integer"
+                description: "ID of Registry"
+              c_id:
+                type: "integer"
+                description: "ID of Course registered for by Student"
+              s_id:
+                type: "integer"
+                description: "ID of Student registered for Course"

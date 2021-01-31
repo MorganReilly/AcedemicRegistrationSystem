@@ -36,8 +36,8 @@ def create(professor):
 
     existing_professor = (
         Professor.query.filter(Professor.fname == fname)
-        .filter(Professor.lname == lname)
-        .one_or_none()
+            .filter(Professor.lname == lname)
+            .one_or_none()
     )
 
     # Insertion possible?
