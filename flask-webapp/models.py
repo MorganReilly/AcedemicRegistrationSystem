@@ -2,6 +2,8 @@
 TITLE: models.py
 ABOUT: Provide Model and Schema classes for serializing data
 AUTHOR: Morgan Reilly
+LINKS:
+    * https://stackoverflow.com/questions/61810855/sqlalchemy-orm-exc-unmappedinstanceerror-class-builtins-dict-is-not-mapped
 """
 from config import db, ma
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
@@ -21,4 +23,16 @@ class ProfessorSchema(SQLAlchemyAutoSchema):
         include_relationships = True
         load_instance = True
 
-# With help: https://stackoverflow.com/questions/61810855/sqlalchemy-orm-exc-unmappedinstanceerror-class-builtins-dict-is-not-mapped
+
+class Course(db.Model):
+    __tablename__ = 'course'
+    c_id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(32))
+    p_id = db.Column(db.Integer)
+
+
+class CourseSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Course
+        include_relationships = True
+        load_instance = True

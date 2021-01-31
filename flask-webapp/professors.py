@@ -12,7 +12,6 @@ from models import Professor, ProfessorSchema
 def read_all():
     """
         This function responds to a request for /api/professors
-        with the complete lists of professors
 
         :return:        json string of list of professors
         """
@@ -53,7 +52,6 @@ def create(professor):
 
         # Serialise and return newly created professor in response
         data = schema.dump(new_professor)
-
         return data, 201
     else:
         # Otherwise professor exists

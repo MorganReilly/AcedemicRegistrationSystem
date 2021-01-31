@@ -76,18 +76,23 @@ paths:
       tags:
         - "Courses"
       summary: "The courses data structure supported by the server application"
-      description: "Read list of courses"
+      description: "Read courses"
       responses:
         200:
-          description: "Successful read courses list operation"
+          description: "Successful read courses"
           schema:
             type: "array"
             items:
               properties:
+                c_id:
+                  type: "integer"
+                  description: "ID of Course"
                 title:
                   type: "string"
+                  description: "Title of course"
                 p_id:
                   type: "string"
+                  description: "ID of Professor assigned to course"
     post:
       operationId: "courses.create"
       tags:
@@ -106,11 +111,22 @@ paths:
                 type: "string"
                 description: "Title of course to create"
               p_id:
-                type: "string"
+                type: "integer"
                 description: "P_ID of professor to assign"
       responses:
         201:
           description: "Successfully created course in list"
+          schema:
+            properties:
+              c_id:
+                type: "integer"
+                description: "ID of course"
+              title:
+                type: "string"
+                description: "Title of course"
+              p_id:
+                type: "integer"
+                description: "ID of professor(s) assigned to course"
 
   /students:
     get:
