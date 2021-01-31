@@ -7,18 +7,15 @@ from flask import make_response, abort
 
 # Data to serve with API
 COURSES = {
-    101: {
-        'c_id': 101,
+    'Maths':{
         'title': 'Maths',
         'p_id': 'P001'
     },  # Example of single professor
-    102: {
-        'c_id': 102,
+    'English': {
         'title': 'English',
         'p_id': 'P002'
     },
-    103: {
-        'c_id': 103,
+    'Latin': {
         'title': 'Latin',
         'p_id': [
             'P001',
@@ -47,24 +44,22 @@ def create(course):
     :param course:  course to create in course structure
     :return:        201 on success, 406 on course exists
     """
-    c_id = course.get("c_id", None)
     title = course.get("title", None)
     p_id = course.get("p_id", None)
 
     # Does the professor exist already?
-    if c_id not in COURSES and c_id is not None:
-        COURSES[c_id] = {
-            "c_id": c_id,
+    if title not in COURSES and title is not None:
+        COURSES[title] = {
             "title": title,
             "p_id": p_id
         }
         return make_response(
-            "Course {c_id} successfully created".format(c_id=c_id), 201
+            "Course {title} successfully created".format(title=title), 201
         )
 
     # Otherwise, they exist, that's an error
     else:
         abort(
             406,
-            "Course with {c_id} already exists".format(c_id=c_id),
+            "Course with {title} already exists".format(title=title),
         )

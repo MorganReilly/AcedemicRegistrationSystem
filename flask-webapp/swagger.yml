@@ -18,26 +18,29 @@ paths:
       tags:
         - "Professors"
       summary: "The professors data structure supported by the server application"
-      description: "Read list of professors"
+      description: "Read all professors"
       responses:
         200:
-          description: "Successful read professors list operation"
+          description: "Successful read professors"
           schema:
             type: "array"
             items:
               properties:
                 p_id:
-                  type: "string"
+                  type: "integer"
+                  description: "ID of Professor"
                 fname:
                   type: "string"
+                  description: "First name of Professor"
                 lname:
                   type: "string"
+                  description: "Last name of Professor"
     post:
       operationId: "professors.create"
       tags:
         - "Professors"
-      summary: "Create a professor and add it to the professors list"
-      description: "Create a new professor on the professors list"
+      summary: "Create a professor"
+      description: "Create a new professor"
       parameters:
         - name: "professor"
           in: "body"
@@ -46,18 +49,26 @@ paths:
           schema:
             type: "object"
             properties:
-              p_id:
-                type: "string"
-                description: "P_ID of professor to create"
               fname:
                 type: "string"
-                description: "Name of professor to create"
+                description: "First name of professor to create"
               lname:
                 type: "string"
-                description: "Name of professor to create"
+                description: "Last name of professor to create"
       responses:
         201:
           description: "Successfully created professor in list"
+          schema:
+            properties:
+              p_id:
+                type: "integer"
+                description: "ID of Professor"
+              fname:
+                type: "string"
+                description: "First name of professor"
+              lname:
+                type: "string"
+                description: "Last name of professor"
 
   /courses:
     get:
@@ -73,8 +84,6 @@ paths:
             type: "array"
             items:
               properties:
-                c_id:
-                  type: "integer"
                 title:
                   type: "string"
                 p_id:
@@ -93,9 +102,6 @@ paths:
           schema:
             type: "object"
             properties:
-              c_id:
-                type: "integer"
-                description: "C_ID of course to create"
               title:
                 type: "string"
                 description: "Title of course to create"
@@ -188,9 +194,9 @@ paths:
               r_id:
                 type: "string"
                 description: "R_ID of registry to create"
-              c_id:
-                type: "integer"
-                description: "C_ID of course to register"
+              c_title:
+                type: "string"
+                description: "Title of course to register"
               s_id:
                 type: "string"
                 description: "S_ID of student to register"

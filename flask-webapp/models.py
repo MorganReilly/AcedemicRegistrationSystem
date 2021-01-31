@@ -1,0 +1,24 @@
+"""
+TITLE: models.py
+ABOUT: Provide Model and Schema classes for serializing data
+AUTHOR: Morgan Reilly
+"""
+from config import db, ma
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
+
+
+class Professor(db.Model):
+    __tablename__ = 'professor'
+    p_id = db.Column(db.Integer, primary_key=True)
+    lname = db.Column(db.String(32))
+    fname = db.Column(db.String(32))
+
+
+class ProfessorSchema(SQLAlchemyAutoSchema):
+    # Used to find SQLAlchemy model and db session
+    class Meta:
+        model = Professor
+        include_relationships = True
+        load_instance = True
+
+# With help: https://stackoverflow.com/questions/61810855/sqlalchemy-orm-exc-unmappedinstanceerror-class-builtins-dict-is-not-mapped

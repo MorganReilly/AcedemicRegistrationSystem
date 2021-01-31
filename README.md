@@ -21,6 +21,14 @@ Genesys Coding Challenge - Morgan Reilly
 ### API Documentation
 Visit:
 ### Backend
-How to Run:
+####How to Run:
+* Download Requirements
+* Do this...
+* Then this...
+
+#### How to Test
+* Run this...
+* Then this...
+
 ### Database
 For schema info see:

@@ -4,20 +4,8 @@ ABOUT: Handler for Professor endpoint
 AUTHOR: Morgan Reilly
 """
 from flask import make_response, abort
-
-# Data to serve with API
-PROFESSORS = {
-    'P001': {
-        'p_id': 'P001',
-        'fname': 'Alice',
-        'lname': 'Greaney'
-    },
-    'P002': {
-        'p_id': 'P002',
-        'fname': 'Bob',
-        'lname': 'Murdock'
-    },
-}
+from config import db
+from models import Professor, ProfessorSchema
 
 
 # Create handler for GET request on Professors
@@ -26,10 +14,15 @@ def read_all():
         This function responds to a request for /api/professors
         with the complete lists of professors
 
-        :return:        sorted list of professors
+        :return:        json string of list of professors
         """
     # Create the list of professors from our data
-    return [PROFESSORS[key] for key in sorted(PROFESSORS.keys())]
+    professors = Professor.query.order_by(Professor.lname).all()
+
+    # Serialise data for response
+    professor_schema = ProfessorSchema(many=True)
+    data = professor_schema.dump(professors)
+    return data
 
 
 def create(professor):
@@ -39,24 +32,29 @@ def create(professor):
     :param professor:  professor to create in professor structure
     :return:        201 on success, 406 on professor exists
     """
-    p_id = professor.get("p_id", None)
-    fname = professor.get("fname", None)
-    lname = professor.get("lname", None)
+    fname = professor.get("fname")
+    lname = professor.get("lname")
 
-    # Does the professor exist already?
-    if p_id not in PROFESSORS and p_id is not None:
-        PROFESSORS[p_id] = {
-            "p_id": p_id,
-            "fname": fname,
-            "lname": lname
-        }
-        return make_response(
-            "Professor {p_id} successfully created".format(p_id=p_id), 201
-        )
+    existing_professor = (
+        Professor.query.filter(Professor.fname == fname)
+        .filter(Professor.lname == lname)
+        .one_or_none()
+    )
 
-    # Otherwise, they exist, that's an error
+    # Insertion possible?
+    if existing_professor is None:
+        # Create professor instance using schema and passed-in professor
+        schema = ProfessorSchema()
+        new_professor = schema.load(professor, session=db.session)
+
+        # Add professor to database
+        db.session.add(new_professor)
+        db.session.commit()
+
+        # Serialise and return newly created professor in response
+        data = schema.dump(new_professor)
+
+        return data, 201
     else:
-        abort(
-            406,
-            "Professor with {p_id} already exists".format(p_id=p_id),
-        )
+        # Otherwise professor exists
+        abort(409, f'Professor {fname} {lname} exists already')

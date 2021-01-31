@@ -9,22 +9,22 @@ from flask import make_response, abort
 COURSE_REGISTRIES = {
     'R001': {
         'r_id': 'R001',
-        'c_id': 100,
+        'c_title': 'English',
         's_id': 'S001'
     },
     'R002': {
         'r_id': 'R002',
-        'c_id': 100,
+        'c_title': 'English',
         's_id': 'S002'
     },
     'R003': {
         'r_id': 'R003',
-        'c_id': 101,
+        'c_title': 'Maths',
         's_id': 'S001'
     },
     'R004': {
         'r_id': 'R004',
-        'c_id': 101,
+        'c_title': 'Maths',
         's_id': 'S002'
     }
 }
@@ -50,14 +50,14 @@ def create(registry):
     :return:        201 on success, 406 on registry exists
     """
     r_id = registry.get("r_id", None)
-    c_id = registry.get("c_id", None)
+    c_title = registry.get("c_title", None)
     s_id = registry.get("s_id", None)
 
     # Does the registry exist already?
     if r_id not in COURSE_REGISTRIES and r_id is not None:
         COURSE_REGISTRIES[r_id] = {
             "r_id": r_id,
-            "c_id": c_id,
+            "c_title": c_title,
             "s_id": s_id
         }
         return make_response(
