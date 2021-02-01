@@ -24,67 +24,77 @@ CONSTRAINTS:
 /* PROFESSOR SCHEMA */
 CREATE TABLE professor
 (
-    id INTEGER(4) unsigned NOT NULL auto_increment,
-    name VARCHAR(32) NOT NULL,
+    p_id INTEGER(4) unsigned NOT NULL auto_increment,
+    fname VARCHAR(32) NOT NULL,
+    lname VARCHAR(32) NOT NULL,
 
-    PRIMARY KEY(id)
+    PRIMARY KEY(p_id)
 ) ENGINE = INNODB;
 
 /* PROFESSOR DATA */
-INSERT INTO professor (name) VALUES
-    ('Alice'),
-    ('Bob');
+INSERT INTO professor (fname, lname) VALUES
+    ('Alice', 'Greaney'),
+    ('Bob', 'Murdock');
+SELECT * FROM professor;
 ###########################################################
 /* COURSE SCHEMA */
 CREATE TABLE course
 (
-    id INTEGER(4) unsigned NOT NULL auto_increment,
-    name VARCHAR(32) NOT NULL,
-    prof_id INTEGER(4) unsigned,
+    c_id INTEGER(4) unsigned NOT NULL auto_increment,
+    title VARCHAR(32) NOT NULL,
+    p_id INTEGER(4) unsigned,
 
-    PRIMARY KEY (id),
-    FOREIGN KEY(prof_id) REFERENCES professor(id) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY (c_id),
+    FOREIGN KEY(p_id) REFERENCES professor(p_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 ALTER TABLE course AUTO_INCREMENT=100;
 
 /* COURSE DATA */
-INSERT INTO course (name, prof_id) VALUES
+INSERT INTO course (title, p_id) VALUES
     ('Maths', 1),
     ('English', 2);
-INSERT INTO course (name) values ('Latin');
+INSERT INTO course (title) values ('Latin');
+SELECT * FROM course;
 ###########################################################
 /* STUDENT SCHEMA */
 CREATE TABLE student
 (
-    id INTEGER(4) unsigned NOT NULL auto_increment,
-    name VARCHAR(32) NOT NULL,
+    s_id INTEGER(4) unsigned NOT NULL auto_increment,
+    fname VARCHAR(32) NOT NULL,
+    lname VARCHAR(32) NOT NULL,
 
-    PRIMARY KEY(id)
+    PRIMARY KEY(s_id)
 ) ENGINE = INNODB;
-ALTER TABLE course AUTO_INCREMENT=1000;
 
 /* STUDENT DATA */
-INSERT INTO student (name) VALUES
-    ('Greg'),
-    ('Tina');
+INSERT INTO student (fname, lname) VALUES
+    ('Roger', 'Cullina'),
+    ('Megan', 'Greenwood');
+SELECT * FROM student;
 ###########################################################
 /* COURSE REGISTRY SCHEMA */
-CREATE TABLE course_registry
+CREATE TABLE registry
 (
-    id INTEGER(4) unsigned NOT NULL auto_increment,
-    course_id INTEGER(4) unsigned NOT NULL,
-    student_id INTEGER(4) unsigned NOT NULL,
+    r_id INTEGER(4) unsigned NOT NULL auto_increment,
+    c_id INTEGER(4) unsigned NOT NULL,
+    s_id INTEGER(4) unsigned NOT NULL,
 
-    PRIMARY KEY(id),
-    CONSTRAINT UC_Registry UNIQUE (course_id, student_id),
-    FOREIGN KEY(course_id) REFERENCES course(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(student_id) REFERENCES student(id) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY(r_id),
+    CONSTRAINT UC_Registry UNIQUE (c_id, s_id),
+    FOREIGN KEY(c_id) REFERENCES course(c_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(s_id) REFERENCES student(s_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 /* COURSE REGISTRY DATA */
-INSERT INTO course_registry (course_id, student_id) VALUES 
+INSERT INTO registry (c_id, s_id) VALUES 
     (100, 1),
     (100, 2),
-    (101, 1),
-    (101, 2);
+    (101, 1);
+SELECT * FROM registry;
 -- drop table course_registry;
+
+
+SELECT * FROM professor;
+SELECT * FROM course;
+SELECT * FROM student;
+SELECT * FROM registry;

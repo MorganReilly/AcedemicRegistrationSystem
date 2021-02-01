@@ -2,9 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fd0be36-6dd2-43bd-95f9-413f6f2afdc7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/academicdb.sql" beforeDir="false" afterPath="$PROJECT_DIR$/academicdb.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/.idea/flaskr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/.idea/flaskr.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/academic.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/build_database.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask-webapp/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/courses.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask-webapp/courses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/professors.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask-webapp/professors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/registries.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask-webapp/registries.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask-webapp/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask-webapp/students.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask-webapp/students.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/.idea/flaskr.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/app.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +69,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1611959336342</updated>
-      <workItem from="1611959339639" duration="22927000" />
+      <workItem from="1611959339639" duration="28220000" />
+      <workItem from="1612195454891" duration="10891000" />
     </task>
     <servers />
   </component>
@@ -71,6 +87,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AcedemicRegistrationSystem$Flask.coverage" NAME="webapp Coverage Results" MODIFIED="1611959540015" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/webapp" />
