@@ -3,72 +3,29 @@ TITLE: professors.py
 ABOUT: Handler for Professor endpoint
 AUTHOR: Morgan Reilly
 """
-from flask import make_response, abort, jsonify
+import mysql.connector
+from flask import jsonify
 from config import db
 
 
-# from models import Professor, ProfessorSchema
-
-
-# Create handler for GET request on Professors
-# def read_all():
-#     """
-#         This function responds to a request for /api/professors
-#
-#         :return:        json string of list of professors
-#         """
-#     # Create the list of professors from our data
-#     professors = Professor.query.order_by(Professor.lname).all()
-#
-#     # Serialise data for response
-#     professor_schema = ProfessorSchema(many=True)
-#     data = professor_schema.dump(professors)
-#     return data
 def read_all():
     """
         This function responds to a request for /api/professors
+        It creates a cursor for connections to MySQL server,
+        then executes the SQL statement, whereby retrieving all data.
 
         :return:        json string of list of professors
         """
-    cur = db.connection.cursor()  # Get a connection curser for M
-    cur.execute('''SELECT * from professor''')
-    rv = cur.fetchall()
-    resp = jsonify(rv)
-    return resp
+    get_professors = '''SELECT * from professor'''
+    try:
+        cursor = db.connection.cursor()  # Get a connection cursor for M
+        cursor.execute(get_professors)
+        data = cursor.fetchall()  # fetchall() -> Retrieve all items,
+        return jsonify(data)
+    except mysql.connector.Error as err:
+        print("Something went wrong: {}".format(err))
 
 
-# def create(professor):
-#     """
-#     This function creates a new professor in the professor structure
-#     based on the passed in professor data
-#     :param professor:  professor to create in professor structure
-#     :return:        201 on success, 406 on professor exists
-#     """
-#     fname = professor.get("fname")
-#     lname = professor.get("lname")
-#
-#     existing_professor = (
-#         Professor.query.filter(Professor.fname == fname)
-#             .filter(Professor.lname == lname)
-#             .one_or_none()
-#     )
-#
-#     # Insertion possible?
-#     if existing_professor is None:
-#         # Create professor instance using schema and passed-in professor
-#         schema = ProfessorSchema()
-#         new_professor = schema.load(professor, session=db.session)
-#
-#         # Add professor to database
-#         db.session.add(new_professor)
-#         db.session.commit()
-#
-#         # Serialise and return newly created professor in response
-#         data = schema.dump(new_professor)
-#         return data, 201
-#     else:
-#         # Otherwise professor exists
-#         abort(409, f'Professor {fname} {lname} exists already')
 def create(professor):
     """
     This function creates a new professor in the professor structure
@@ -79,8 +36,12 @@ def create(professor):
     fname = professor.get("fname")
     lname = professor.get("lname")
 
-    cur = db.connection.cursor()
-    cur.execute("INSERT INTO professor(fname, lname) VALUES (%s, %s)", (fname, lname))
-    db.connection.commit()
-    cur.close()
-    return 'success'
+    insert_into_professor = '''INSERT INTO professor(fname, lname) VALUES (%s, %s)'''
+    try:
+        cursor = db.connection.cursor()
+        cursor.execute(insert_into_professor, (fname, lname))
+        db.connection.commit()
+        cursor.close()
+        return 201
+    except mysql.connector.Error as err:
+        print("Something went wrong: {}".format(err))

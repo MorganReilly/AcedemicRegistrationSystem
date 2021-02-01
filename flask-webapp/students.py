@@ -3,72 +3,29 @@ TITLE: students.py
 ABOUT: Handler for Student endpoint
 AUTHOR: Morgan Reilly
 """
-from flask import make_response, abort, jsonify
+import mysql.connector
+from flask import jsonify
 from config import db
 
 
-# from models import Student, StudentSchema
-
-
-# Create handler for GET request on Students
-# def read_all():
-#     """
-#         This function responds to a request for /api/students
-#
-#         :return:        json string of list of students
-#         """
-#     # Create the list of students from our data
-#     students = Student.query.order_by(Student.lname).all()
-#
-#     # Serialise data for response
-#     student_schema = StudentSchema(many=True)
-#     data = student_schema.dump(students)
-#     return data
 def read_all():
     """
         This function responds to a request for /api/students
+        It creates a cursor for connections to MySQL server,
+        then executes the SQL statement, whereby retrieving all data.
 
         :return:        json string of list of students
         """
-    cur = db.connection.cursor()
-    cur.execute('''SELECT * from student''')
-    rv = cur.fetchall()
-    resp = jsonify(rv)
-    return resp
+    get_students = '''SELECT * from student'''
+    try:
+        cursor = db.connection.cursor()
+        cursor.execute(get_students)
+        data = cursor.fetchall()
+        return jsonify(data)
+    except mysql.connector.Error as err:
+        print("Something went wrong: {}".format(err))
 
 
-# def create(student):
-#     """
-#     This function creates a new student in the student structure
-#     based on the passed in student data
-#     :param student:  student to create in student structure
-#     :return:        201 on success, 406 on student exists
-#     """
-#     fname = student.get("fname")
-#     lname = student.get("lname")
-#
-#     existing_student = (
-#         Student.query.filter(Student.fname == fname)
-#             .filter(Student.lname == lname)
-#             .one_or_none()
-#     )
-#
-#     # Insertion possible?
-#     if existing_student is None:
-#         # Create student instance using schema and passed-in student
-#         schema = StudentSchema()
-#         new_student = schema.load(student, session=db.session)
-#
-#         # Add student to database
-#         db.session.add(new_student)
-#         db.session.commit()
-#
-#         # Serialise and return newly created student in response
-#         data = schema.dump(new_student)
-#         return data, 201
-#     else:
-#         # Otherwise professor exists
-#         abort(409, f'Student {fname} {lname} exists already')
 def create(student):
     """
     This function creates a new student in the student structure
@@ -79,8 +36,12 @@ def create(student):
     fname = student.get("fname")
     lname = student.get("lname")
 
-    cur = db.connection.cursor()
-    cur.execute("INSERT INTO student(fname, lname) VALUES (%s, %s)", (fname, lname))
-    db.connection.commit()
-    cur.close()
-    return 'success'
+    insert_into_student = '''INSERT INTO student(fname, lname) VALUES (%s, %s)'''
+    try:
+        cursor = db.connection.cursor()
+        cursor.execute(insert_into_student, (fname, lname))
+        db.connection.commit()
+        cursor.close()
+        return 201
+    except mysql.connector.Error as err:
+        print("Something went wrong: {}".format(err))

@@ -7,8 +7,8 @@ LINKS:
     * https://flask.palletsprojects.com/en/1.1.x/tutorial/
     * https://realpython.com/flask-connexion-rest-api/
 """
-from flask import Flask, render_template
-import config
+from flask import Flask
+import config  # Load the configuration from config.py
 
 # Get app instance
 connex_app = config.connex_app
