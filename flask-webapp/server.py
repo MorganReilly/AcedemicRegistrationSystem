@@ -6,6 +6,7 @@ LINKS:
     * https://flask-restful.readthedocs.io/
     * https://flask.palletsprojects.com/en/1.1.x/tutorial/
     * https://realpython.com/flask-connexion-rest-api/
+    * https://dev.mysql.com/doc/connector-python/en/connector-python-introduction.html
 """
 from flask import Flask
 import config  # Load the configuration from config.py

@@ -31,7 +31,7 @@ def create(course):
     This function creates a new course in the course structure
     based on the passed in course data
     :param course:  course to create in course structure
-    :return:        201 on success, 406 on course exists
+    :return:        201 on success, Error message on failure
     """
     title = course.get("title")
     p_id = course.get("p_id")

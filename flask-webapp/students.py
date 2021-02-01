@@ -30,7 +30,7 @@ def create(student):
     This function creates a new student in the student structure
     based on the passed in student data
     :param student:  student to create in student structure
-    :return:        201 on success, 406 on student exists
+    :return:        201 on success, Error message on failure
     """
     fname = student.get("fname")
     lname = student.get("lname")

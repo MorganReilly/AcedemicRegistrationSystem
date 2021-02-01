@@ -30,7 +30,7 @@ def create(professor):
     This function creates a new professor in the professor structure
     based on the passed in professor data
     :param professor:  professor to create in professor structure
-    :return:        201 on success, 406 on professor exists
+    :return:        201 on success, Error message on failure
     """
     fname = professor.get("fname")
     lname = professor.get("lname")

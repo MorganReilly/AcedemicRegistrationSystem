@@ -30,7 +30,7 @@ def create(registry):
     This function creates a new registry in the registry structure
     based on the passed in registry data
     :param registry:  student to create in registry structure
-    :return:        201 on success, 406 on registry exists
+    :return:        201 on success, Error message on failure
     """
     c_id = registry.get("c_id")
     s_id = registry.get("s_id")
