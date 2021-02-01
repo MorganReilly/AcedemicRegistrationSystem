@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   description: Academic Registration system swagger file for server code
   version: "1.0.0"
-  title: Academic Registration System REST
+  title: Academic Registration System API
 consumes:
   - "application/json"
 produces:
@@ -17,11 +17,11 @@ paths:
       operationId: "professors.read_all"
       tags:
         - "Professors"
-      summary: "The professors data structure supported by the server application"
-      description: "Read all professors"
+      summary: "GET all Professors"
+      description: "GET all professors from database"
       responses:
         200:
-          description: "Successful read professors"
+          description: "Successful GET Professors"
           schema:
             type: "array"
             items:
@@ -36,11 +36,12 @@ paths:
                   type: "string"
                   description: "Last name of Professor"
     post:
+      # operationId -> Identify which python function should handle url
       operationId: "professors.create"
       tags:
         - "Professors"
-      summary: "Create a professor"
-      description: "Create a new professor"
+      summary: "Create a new Professor"
+      description: "Create a new Professor with POST request"
       parameters:
         - name: "professor"
           in: "body"
@@ -57,7 +58,7 @@ paths:
                 description: "Last name of professor to create"
       responses:
         201:
-          description: "Successfully created professor in db"
+          description: "Successfully created Professor in db"
           schema:
             properties:
               p_id:
@@ -65,21 +66,21 @@ paths:
                 description: "ID of Professor"
               fname:
                 type: "string"
-                description: "First name of professor"
+                description: "First name of Professor"
               lname:
                 type: "string"
-                description: "Last name of professor"
+                description: "Last name of Professor"
 
   /courses:
     get:
       operationId: "courses.read_all"
       tags:
         - "Courses"
-      summary: "The courses data structure supported by the server application"
-      description: "Read courses"
+      summary: "GET all Courses"
+      description: "GET Courses from database"
       responses:
         200:
-          description: "Successful read courses"
+          description: "Successful GET courses"
           schema:
             type: "array"
             items:
@@ -89,16 +90,16 @@ paths:
                   description: "ID of Course"
                 title:
                   type: "string"
-                  description: "Title of course"
+                  description: "Title of Course"
                 p_id:
                   type: "string"
-                  description: "ID of Professor assigned to course"
+                  description: "ID of Professor(s) assigned to Course"
     post:
       operationId: "courses.create"
       tags:
         - "Courses"
-      summary: "Create a course and add it to the courses db"
-      description: "Create a new course on the courses db"
+      summary: "Create a new Course"
+      description: "Create a new Course with POST request"
       parameters:
         - name: "course"
           in: "body"
@@ -109,35 +110,35 @@ paths:
             properties:
               title:
                 type: "string"
-                description: "Title of course to create"
+                description: "Title of Course to create"
               p_id:
                 type: "integer"
-                description: "P_ID of professor to assign"
+                description: "P_ID of Professor to assign to Course"
       responses:
         201:
-          description: "Successfully created course in list"
+          description: "Successfully created Course"
           schema:
             properties:
               c_id:
                 type: "integer"
-                description: "ID of course"
+                description: "ID of Course"
               title:
                 type: "string"
-                description: "Title of course"
+                description: "Title of Course"
               p_id:
-                type: "integer"
-                description: "ID of professor(s) assigned to course"
+                type: "string"
+                description: "ID of Professor(s) assigned to Course"
 
   /students:
     get:
       operationId: "students.read_all"
       tags:
         - "Students"
-      summary: "The Students data structure supported by the server application"
-      description: "Read students"
+      summary: "GET all Students"
+      description: "GET Students from database"
       responses:
         200:
-          description: "Successful read students operation"
+          description: "Successful GET Students"
           schema:
             type: "array"
             items:
@@ -147,16 +148,16 @@ paths:
                   description: "ID of Student"
                 fname:
                   type: "string"
-                  description: "First name of student"
+                  description: "First name of Student"
                 lname:
                   type: "string"
-                  description: "Last name of student"
+                  description: "Last name of Student"
     post:
       operationId: "students.create"
       tags:
         - "Students"
-      summary: "Create a student and add it to the students db"
-      description: "Create a new student on the students db"
+      summary: "Create a new Student"
+      description: "Create a new Student with POST request"
       parameters:
         - name: "student"
           in: "body"
@@ -167,13 +168,13 @@ paths:
             properties:
               fname:
                 type: "string"
-                description: "Name of student to create"
+                description: "Name of Student to create"
               lname:
                 type: "string"
-                description: "Name of student to create"
+                description: "Name of Student to create"
       responses:
         201:
-          description: "Successfully created student in list"
+          description: "Successfully created new Student"
           schema:
             properties:
               s_id:
@@ -191,11 +192,11 @@ paths:
       operationId: "registries.read_all"
       tags:
         - "Registries"
-      summary: "The course registries data structure supported by the server application"
-      description: "Read course registries"
+      summary: "GET all Registries"
+      description: "GET all Registries from database"
       responses:
         200:
-          description: "Successful read registries operation"
+          description: "Successful GET Registries"
           schema:
             type: "array"
             items:
@@ -213,8 +214,8 @@ paths:
       operationId: "registries.create"
       tags:
         - "Registries"
-      summary: "Create a registry and add it to the registries db"
-      description: "Create a new registry on the registries db"
+      summary: "Create a new Registry"
+      description: "Create a new Registry with POST request"
       parameters:
         - name: "registry"
           in: "body"
