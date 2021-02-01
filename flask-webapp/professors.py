@@ -5,7 +5,8 @@ AUTHOR: Morgan Reilly
 """
 from flask import make_response, abort, jsonify
 from config import db
-from flask_mysqldb import MySQL
+
+
 # from models import Professor, ProfessorSchema
 
 
@@ -29,8 +30,7 @@ def read_all():
 
         :return:        json string of list of professors
         """
-    # Create the list of professors from our data
-    cur = db.connection.cursor()
+    cur = db.connection.cursor()  # Get a connection curser for M
     cur.execute('''SELECT * from professor''')
     rv = cur.fetchall()
     resp = jsonify(rv)
