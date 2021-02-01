@@ -3,7 +3,6 @@ TITLE: students.py
 ABOUT: Handler for Student endpoint
 AUTHOR: Morgan Reilly
 """
-import mysql.connector
 from flask import jsonify
 from config import db
 
@@ -22,8 +21,8 @@ def read_all():
         cursor.execute(get_students)
         data = cursor.fetchall()
         return jsonify(data)
-    except mysql.connector.Error as err:
-        print("Something went wrong: {}".format(err))
+    except db.connection.Error as e:
+        return str(e)
 
 
 def create(student):
@@ -43,5 +42,5 @@ def create(student):
         db.connection.commit()
         cursor.close()
         return 201
-    except mysql.connector.Error as err:
-        print("Something went wrong: {}".format(err))
+    except db.connection.Error as e:
+        return str(e)

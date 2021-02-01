@@ -3,7 +3,6 @@ TITLE: courses.py
 ABOUT: Handler for Course endpoint
 AUTHOR: Morgan Reilly
 """
-import mysql.connector
 from flask import jsonify
 from config import db
 
@@ -23,8 +22,8 @@ def read_all():
         cursor.execute(get_courses)
         data = cursor.fetchall()  # fetchall() -> Retrieve all items
         return jsonify(data)
-    except mysql.connector.Error as err:
-        print("Something went wrong: {}".format(err))
+    except db.connection.Error as e:
+        return str(e)
 
 
 def create(course):
@@ -44,5 +43,5 @@ def create(course):
         db.connection.commit()
         cur.close()
         return 201
-    except mysql.connector.Error as err:
-        print("Something went wrong: {}".format(err))
+    except db.connection.Error as e:
+        return str(e)

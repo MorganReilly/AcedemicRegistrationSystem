@@ -3,7 +3,6 @@ TITLE: professors.py
 ABOUT: Handler for Professor endpoint
 AUTHOR: Morgan Reilly
 """
-import mysql.connector
 from flask import jsonify
 from config import db
 
@@ -22,8 +21,8 @@ def read_all():
         cursor.execute(get_professors)
         data = cursor.fetchall()  # fetchall() -> Retrieve all items,
         return jsonify(data)
-    except mysql.connector.Error as err:
-        print("Something went wrong: {}".format(err))
+    except db.connection.Error as e:
+        return str(e)
 
 
 def create(professor):
@@ -43,5 +42,5 @@ def create(professor):
         db.connection.commit()
         cursor.close()
         return 201
-    except mysql.connector.Error as err:
-        print("Something went wrong: {}".format(err))
+    except db.connection.Error as e:
+        return str(e)
