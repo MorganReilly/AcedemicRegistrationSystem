@@ -7,6 +7,7 @@ import os
 import connexion
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_mysqldb import MySQL
 
 # Point to directory where program is running in
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -25,10 +26,15 @@ app = connex_app.app
 # app.config["SQLALCHEMY_DATABASE_URI"] = sqlite_url
 # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Build MySQL URL
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'morgan'
+app.config['MYSQL_PASSWORD'] = 'rootpassword'
+app.config['MYSQL_DB'] = 'academicdb'
+
+db = MySQL(app)
 
 # Create SQLAlchemy db instance
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 # Initialise Marshmallow
 ma = Marshmallow(app)

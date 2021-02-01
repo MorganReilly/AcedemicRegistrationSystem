@@ -5,7 +5,7 @@ AUTHOR: Morgan Reilly
 """
 from flask import make_response, abort
 from config import db
-from models import Student, StudentSchema
+# from models import Student, StudentSchema
 
 
 # Create handler for GET request on Students
