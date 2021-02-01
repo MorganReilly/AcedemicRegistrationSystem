@@ -14,8 +14,8 @@ PROFESSORS = [
 ]
 
 COURSES = [
-    {'title': 'Maths', 'p_id': 100},
-    {'title': 'English', 'p_id': 101}
+    {'title': 'Maths', 'p_id': 1},
+    {'title': 'English', 'p_id': 2}
 ]
 
 STUDENTS = [

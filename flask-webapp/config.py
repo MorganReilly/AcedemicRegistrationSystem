@@ -17,13 +17,15 @@ connex_app = connexion.App(__name__, specification_dir=basedir)
 # Get underlying Flask app instance
 app = connex_app.app
 
-# Build Sqlite URL
-sqlite_url = "sqlite:///" + os.path.join(basedir, "academic.db")
+# # Build Sqlite URL
+# sqlite_url = "sqlite:///" + os.path.join(basedir, "academic.db")
+#
+# # Configure SQLAlchemy part of app instance
+# app.config["SQLALCHEMY_ECHO"] = True
+# app.config["SQLALCHEMY_DATABASE_URI"] = sqlite_url
+# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Configure SQLAlchemy part of app instance
-app.config["SQLALCHEMY_ECHO"] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = sqlite_url
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+# Build MySQL URL
 
 # Create SQLAlchemy db instance
 db = SQLAlchemy(app)

@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: Academic Registration system swagger file for server code
-  version: "1.0.0"
+  version: "1.0.2"
   title: Academic Registration System API
 consumes:
   - "application/json"
