@@ -16,13 +16,18 @@ def read_all():
         :return:        json string of list of students
         """
     get_students = '''SELECT * from student'''
+    cursor = db.connection.cursor()
     try:
-        cursor = db.connection.cursor()
         cursor.execute(get_students)
         data = cursor.fetchall()
-        return jsonify(data)
+        return jsonify(data), 200
     except db.connection.Error as e:
-        return str(e)
+        # Using 400 for a general message, bad request
+        error_message = 'ERROR: ' + str(e)
+        print(error_message)
+        return error_message, 400
+    finally:
+        cursor.close()
 
 
 def create(student):
@@ -36,11 +41,17 @@ def create(student):
     lname = student.get("lname")
 
     insert_into_student = '''INSERT INTO student(fname, lname) VALUES (%s, %s)'''
+    cursor = db.connection.cursor()
     try:
-        cursor = db.connection.cursor()
         cursor.execute(insert_into_student, (fname, lname))
         db.connection.commit()
-        cursor.close()
-        return 201
+        data = jsonify(fname=fname, lname=lname)
+        return data, 201
     except db.connection.Error as e:
-        return str(e)
+        # Using 409 since it will likely be a conflict error
+        # Not great since it could be a missing table...
+        error_message = 'ERROR: ' + str(e)
+        print(error_message)
+        return error_message, 400
+    finally:
+        cursor.close()

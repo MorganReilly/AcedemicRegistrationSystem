@@ -16,13 +16,18 @@ def read_all():
         :return:        json string of list of registries
         """
     get_registries = '''SELECT * from registry'''
+    cursor = db.connection.cursor()  # Cursor interacts with MySQL server
     try:
-        cursor = db.connection.cursor()
         cursor.execute(get_registries)
         data = cursor.fetchall()
-        return jsonify(data)
+        return jsonify(data), 200
     except db.connection.Error as e:
-        return str(e)
+        # Using 400 for a general message, bad request
+        error_message = 'ERROR: ' + str(e)
+        print(error_message)
+        return error_message, 400
+    finally:
+        cursor.close()
 
 
 def create(registry):
@@ -36,11 +41,17 @@ def create(registry):
     s_id = registry.get("s_id")
 
     insert_into_registry = '''INSERT INTO registry(c_id, s_id) VALUES (%s, %s)'''
+    cursor = db.connection.cursor()
     try:
-        cursor = db.connection.cursor()
         cursor.execute(insert_into_registry, (c_id, s_id))
         db.connection.commit()
-        cursor.close()
-        return 201
+        data = jsonify(c_id=c_id, s_id=s_id)  # Grab the data for the response
+        return data, 201
     except db.connection.Error as e:
-        return str(e)
+        # Using 409 since it will likely be a conflict error
+        # Not great since it could be a missing table...
+        error_message = 'ERROR: ' + str(e)
+        print(error_message)
+        return error_message, 400
+    finally:
+        cursor.close()
