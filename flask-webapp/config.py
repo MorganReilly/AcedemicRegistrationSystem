@@ -16,9 +16,15 @@ connex_app = connexion.App(__name__, specification_dir=basedir)
 # Get underlying Flask app instance
 app = connex_app.app
 
-"""MySQL Configuration"""
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'morgan'
+"""MySQL Local Configuration"""
+# app.config['MYSQL_HOST'] = 'localhost'
+# app.config['MYSQL_USER'] = 'morgan'
+# app.config['MYSQL_PASSWORD'] = 'rootpassword'
+# app.config['MYSQL_DB'] = 'academicdb'
+
+"""MySQL AWS Configuration"""
+app.config['MYSQL_HOST'] = 'academic-database.cykgq28ntsef.eu-west-1.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'admin'
 app.config['MYSQL_PASSWORD'] = 'rootpassword'
 app.config['MYSQL_DB'] = 'academicdb'
 
