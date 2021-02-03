@@ -48,7 +48,7 @@ Note: This assumes you have `cURL` on your machine.
 * Create new Student `POST` request:<br> `$ curl http://18.203.101.103/api/students -d '{"fname":"Kelly","lname":"Appleseed"}' -H "Content-Type: application/json"`
 
 ### Registries
-Note: This must have an existing course id, an existing student id, and must be unique in entry. Running these commands (Professor -> Registries) in order should satisfy this.
+Note: This must have an existing course id, an existing student id, and must be unique in entry.
 * Get all Registries using `GET` request:<br>
 `$ curl http://18.203.101.103/api/registries`
 * Create new Registry `POST` request:<br> `$ curl http://18.203.101.103/api/registries -d '{"c_id":102,"s_id":3}' -H "Content-Type: application/json"`
