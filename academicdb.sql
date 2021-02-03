@@ -1,6 +1,6 @@
 /*
 == Academic Class Registration System Database ==
-VERSION: 1.1
+VERSION: 1.0.3
 AUTHOR: MORGAN REILLY
 */
 
@@ -53,7 +53,6 @@ ALTER TABLE course AUTO_INCREMENT=100;
 INSERT INTO course (title, p_id) VALUES
     ('Maths', 1),
     ('English', 2);
-INSERT INTO course (title) values ('Latin');
 SELECT * FROM course;
 ###########################################################
 /* STUDENT SCHEMA */
@@ -91,7 +90,6 @@ INSERT INTO registry (c_id, s_id) VALUES
     (100, 2),
     (101, 1);
 SELECT * FROM registry;
--- drop table course_registry;
 
 
 SELECT * FROM professor;

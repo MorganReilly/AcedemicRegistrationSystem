@@ -2,11 +2,6 @@
 TITLE: server.py
 ABOUT: Main entry point to application
 AUTHOR: Morgan Reilly
-LINKS:
-    * https://flask-restful.readthedocs.io/
-    * https://flask.palletsprojects.com/en/1.1.x/tutorial/
-    * https://realpython.com/flask-connexion-rest-api/
-    * https://dev.mysql.com/doc/connector-python/en/connector-python-introduction.html
 """
 from flask import Flask, render_template
 import config  # Load the configuration from config.py
